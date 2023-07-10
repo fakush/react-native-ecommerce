@@ -1,8 +1,7 @@
 export const texts = {
     title: {
         fontSize: 35,
-        fontWeight: 'bold',
-        fontFamily: 'Lobster',
+        fontFamily: 'Audiowide',
     },
     subtitle: {
         fontSize: 25,

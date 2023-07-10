@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View } from 'react-native'
+import { Keyboard, StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
 import { colors } from '../../Global/colors'
@@ -7,13 +7,19 @@ import IconButton from '../Common/Buttons/IconButton'
 
 const ProductsSearchBar = ({ onSearch, onClear, goBack }) => {
     const [search, setSearch] = useState("")
+
+    const onClearSearch = () => {
+        Keyboard.dismiss()
+        setSearch("")
+        onClear()
+    }
     
     return (
         <View style={styles.container}>
             <IconButton icon='arrow-left-circle' color={'black'} onPress={goBack} />
             <TextInput style={styles.TextInput} placeholder='Search...' value={search} onChangeText={setSearch} />
             <DefaultButton icon='card-search' text='Find' color={colors.primary} onPress={() => onSearch(search)} />
-            <IconButton icon='close-circle' color={'black'} onPress={() => {setSearch(""); onClear}} />
+            <IconButton icon='close-circle' color={'black'} onPress={onClearSearch} />
         </View>
     )
 }

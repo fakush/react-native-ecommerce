@@ -21,7 +21,6 @@ export default function App() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    console.log('No se han cargado las fuentes');
     return null;
   }
 

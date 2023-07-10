@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Keyboard, StyleSheet, View } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { colors } from '../Global/colors'
 import productList from '../Data/products.json'
@@ -8,7 +8,6 @@ import DefaultModal from '../Components/Common/Modals/DefaultModal'
 
 const searchValidation = (keyword) => {
     if (keyword.length < 3) {
-        console.log('reyected test');
         return false
     }
     const regex = /^[a-zA-Z0-9 ]+$/
@@ -34,19 +33,28 @@ const Products = ({ categorySelected, setCategorySelected }) => {
     }, [category, keyword])
 
     const onSearch = (keyword) => {
+        Keyboard.dismiss()
+
         if (searchValidation(keyword)) {
             setKeywordError("")
-            setKeyword(keyword)
-        } else {
+            return setKeyword(keyword)
+        }
+        if (keyword === "") {
+            return setKeyword("")
+        }
+        if (!keyword) {
+            setModalVisible(true)
+            return setKeywordError("Keyword must be at least 3 characters long and only contain letters, numbers and spaces")
+        }
+        else {
             setModalVisible(true)
             setKeywordError("Keyword must be at least 3 characters long and only contain letters, numbers and spaces")
         }
     }
 
     const onClear = () => {
-        setKeyword("")
+        onSearch("")
     }
-
 
     return (
         <View style={styles.container}>

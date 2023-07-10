@@ -8,7 +8,7 @@ const ProductListCard = ({ item }) => {
         <View style={styles.container}>
             {/* <Pressable onPress={() => setProductSelected(item)} style={styles.container}> */}
                 <CardComponent aditionalStyles={styles.cardStyles}>
-                    <Text style={texts.categories}>{item.title}</Text>
+                    <Text style={[texts.categories, styles.cardText]}>{item.title}</Text>
                     <Image resizeMode='cover' style={styles.image} source={{ uri: item.thumbnail }} />
                 </CardComponent>
             {/* </Pressable> */}
@@ -29,8 +29,12 @@ const styles = StyleSheet.create({
         margin: 10,
         alignContent: 'center',
     },
+    cardText: {
+        maxWidth: 220,
+    },
     image: {
-        borderRadius: 10,
+        width: 100,
+        borderRadius: 8,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
