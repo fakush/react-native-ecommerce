@@ -4,9 +4,11 @@ import { colors } from '../Global/colors'
 import productList from '../Data/products.json'
 import ProductListCard from '../Components/Products/ProductListCard'
 import ProductsSearchBar from '../Components/Products/ProductsSearchBar'
+import DefaultModal from '../Components/Common/Modals/DefaultModal'
 
 const searchValidation = (keyword) => {
     if (keyword.length < 3) {
+        console.log('reyected test');
         return false
     }
     const regex = /^[a-zA-Z0-9 ]+$/
@@ -18,6 +20,13 @@ const Products = ({ categorySelected, setCategorySelected }) => {
     const [products, setProducts] = useState([])
     const [keyword, setKeyword] = useState("")
     const [keywordError, setKeywordError] = useState("")
+    const [modalVisible, setModalVisible] = useState(false)
+
+    const onCloseError = () => {
+        setModalVisible(false)
+        setKeywordError("")
+        setKeyword("")
+    }
 
     useEffect(() => {
         const filterProducts = productList.filter(product => product.category === category && product.title.toLowerCase().includes(keyword.toLowerCase()))
@@ -29,18 +38,24 @@ const Products = ({ categorySelected, setCategorySelected }) => {
             setKeywordError("")
             setKeyword(keyword)
         } else {
+            setModalVisible(true)
             setKeywordError("Keyword must be at least 3 characters long and only contain letters, numbers and spaces")
         }
+    }
+
+    const onClear = () => {
+        setKeyword("")
     }
 
 
     return (
         <View style={styles.container}>
-            <ProductsSearchBar onSearch={onSearch} error={keywordError} goBack={() => setCategorySelected("")} />
+            <ProductsSearchBar onSearch={onSearch} onClear={onClear} goBack={() => setCategorySelected("")} />
             <FlatList
                 data={products}
                 keyExtractor={product => product.id}
                 renderItem={({ item }) => ProductListCard({ item })} />
+            {keywordError && <DefaultModal title='Error' body={keywordError} modalVisible={modalVisible} onClose={onCloseError} />}
         </View>
     )
 }

@@ -2,7 +2,7 @@ export const texts = {
     title: {
         fontSize: 35,
         fontWeight: 'bold',
-        fontFamily: 'serif',
+        fontFamily: 'Lobster',
     },
     subtitle: {
         fontSize: 25,
