@@ -14,8 +14,8 @@ const searchValidation = (keyword) => {
     return regex.test(keyword)
 }
 
-const Products = ({ categorySelected, setCategorySelected }) => {
-    const [category, setCategory] = useState(categorySelected)
+const Products = ({ navigation, route }) => {
+    const { category } = route.params
     const [products, setProducts] = useState([])
     const [keyword, setKeyword] = useState("")
     const [keywordError, setKeywordError] = useState("")
@@ -58,11 +58,11 @@ const Products = ({ categorySelected, setCategorySelected }) => {
 
     return (
         <View style={styles.container}>
-            <ProductsSearchBar onSearch={onSearch} onClear={onClear} goBack={() => setCategorySelected("")} />
+            <ProductsSearchBar onSearch={onSearch} onClear={onClear} goBack={() => navigation.goBack()} />
             <FlatList
                 data={products}
                 keyExtractor={product => product.id}
-                renderItem={({ item }) => ProductListCard({ item })} />
+                renderItem={({ item }) => ProductListCard({ item, navigation })} />
             {keywordError && <DefaultModal title='Error' body={keywordError} modalVisible={modalVisible} onClose={onCloseError} />}
         </View>
     )
