@@ -3,10 +3,10 @@ import React from 'react'
 import CardComponent from '../Common/CardComponent'
 import { texts } from '../../Global/texts'
 
-const CategoryCard = ({ item, setCategorySelected }) => {
+const CategoryCard = ({ item, navigation }) => {
 
   return (
-    <Pressable onPress={() => setCategorySelected(item)} style={styles.container}>
+    <Pressable onPress={() => navigation.navigate('Products', { category: item })} style={styles.container}>
       <CardComponent>
         <Text style={texts.categories}>{item}</Text>
       </CardComponent>
