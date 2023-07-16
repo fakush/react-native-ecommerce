@@ -1,18 +1,16 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import CardComponent from '../Common/CardComponent'
 import { texts } from '../../Global/texts'
 
 const ProductListCard = ({ item, navigation }) => {
     return (
-        <View style={styles.container}>
-            <Pressable onPress={() => navigation.navigate('ProductDetail', {product: item})}>
-                <CardComponent aditionalStyles={styles.cardStyles}>
-                    <Text style={[texts.categories, styles.cardText]}>{item.title}</Text>
-                    <Image resizeMode='cover' style={styles.image} source={{ uri: item.thumbnail }} />
-                </CardComponent>
-            </Pressable>
-        </View>
+        <Pressable style={styles.container} onPress={() => navigation.navigate('ProductDetail', { product: item })}>
+            <CardComponent aditionalStyles={styles.cardStyles}>
+                <Text style={[texts.categories, styles.cardText]}>{item.title}</Text>
+                <Image resizeMode='cover' style={styles.image} source={{ uri: item.thumbnail }} />
+            </CardComponent>
+        </Pressable>
     )
 }
 
