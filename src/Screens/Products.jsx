@@ -1,10 +1,10 @@
 import { FlatList, Keyboard, StyleSheet, View } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { colors } from '../Global/colors'
-import productList from '../Data/products.json'
 import ProductListCard from '../Components/Products/ProductListCard'
 import ProductsSearchBar from '../Components/Products/ProductsSearchBar'
 import DefaultModal from '../Components/Common/Modals/DefaultModal'
+import { useSelector } from 'react-redux'
 
 const searchValidation = (keyword) => {
     if (keyword.length < 3) {
@@ -15,7 +15,8 @@ const searchValidation = (keyword) => {
 }
 
 const Products = ({ navigation, route }) => {
-    const { category } = route.params
+    const productsSelected = useSelector(state => state.productsReducer.value.productsSelected)
+    
     const [products, setProducts] = useState([])
     const [keyword, setKeyword] = useState("")
     const [keywordError, setKeywordError] = useState("")
@@ -28,9 +29,9 @@ const Products = ({ navigation, route }) => {
     }
 
     useEffect(() => {
-        const filterProducts = productList.filter(product => product.category === category && product.title.toLowerCase().includes(keyword.toLowerCase()))
+        const filterProducts = productsSelected.filter(product => product.title.toLowerCase().includes(keyword.toLowerCase()))
         setProducts(filterProducts)
-    }, [category, keyword])
+    }, [productsSelected, keyword])
 
     const onSearch = (keyword) => {
         Keyboard.dismiss()
