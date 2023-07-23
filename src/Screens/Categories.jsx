@@ -10,7 +10,7 @@ const Categories = ({ navigation }) => {
       <FlatList
         data={categories}
         keyExtractor={category => category}
-        renderItem={({ item }) => CategoryCard({ item, navigation })}
+        renderItem={({ item }) => <CategoryCard item={item} navigation={navigation} />}
         showsVerticalScrollIndicator={false}
       />
     </View>

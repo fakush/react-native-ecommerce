@@ -6,7 +6,6 @@ import { texts } from '../Global/texts';
 
 export default function ProductDetails({navigation, route}) {
   const { product } = route.params;
-  console.log(product);
 
   return (
     <View style={[styles.container]}>
